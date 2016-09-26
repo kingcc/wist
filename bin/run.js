@@ -1,12 +1,12 @@
 'use strict';
-var google = require('./baidu');
+var google = require('../lib/baidu');
 
 google.resultsPerPage = 10;
 google.lang = 'cn';
 google.sensitive = ['新浪微','客服'];
 var nextCounter = 0;
 
-google('js switch', function (err, res){
+google('jquery', function (err, res){
   if (err) console.error(err);
   var index = nextCounter*google.resultsPerPage + 1;
 
@@ -14,6 +14,7 @@ google('js switch', function (err, res){
     var link = res.links[i];
     console.log(`[${index++}] ${link.title}`);
     console.log(link.description);
+    console.log(link.image);
     console.log(`[${link.href}]\n`);
   }
 
