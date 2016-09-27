@@ -1,25 +1,45 @@
 'use strict';
-var google = require('../lib/baidu');
 
-google.resultsPerPage = 10;
+var google = require('../lib/google');
+var baidu = require('../lib/baidu');
+
+var
+  nextCounter = 0,
+  pages = 2;
+
+var
+  googleResults = [],
+  baiduResults = [];
+
+baidu.resultsPerPage = 10;
+baidu.lang = 'cn';
+baidu.sensitive = ['新浪微', '客服'];
+
 google.lang = 'cn';
-google.sensitive = ['新浪微','客服'];
-var nextCounter = 0;
 
-google('jquery', function (err, res){
+baidu(string, function(err, res) {
   if (err) console.error(err);
-  var index = nextCounter*google.resultsPerPage + 1;
 
   for (var i = 0; i < res.links.length; ++i) {
     var link = res.links[i];
-    console.log(`[${index++}] ${link.title}`);
-    console.log(link.description);
-    console.log(link.image);
-    console.log(`[${link.href}]\n`);
+    baiduResults.push(link);
   }
 
-  if (nextCounter < 0) {
+  if (nextCounter < pages) {
     nextCounter += 1;
     if (res.next) res.next();
+  }else {}
+});
+google(string, function(err, res) {
+  if (err) console.error(err);
+
+  for (var i = 0; i < res.links.length; ++i) {
+    var link = res.links[i];
+    googleResults.push(link);
   }
+
+  if (nextCounter < pages) {
+    nextCounter += 1;
+    if (res.next) res.next();
+  }else {}
 });
