@@ -1,6 +1,6 @@
 {
   "name": "wist",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A node.js search engine for personal demand using google & wiki API .",
   "main": "./bin/run.js",
   "scripts": {
