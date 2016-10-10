@@ -5,6 +5,7 @@ var baidu = require('../lib/baidu');
 
 var
   nextCounter = 0,
+  string = 'test',
   pages = 2;
 
 var
@@ -19,6 +20,10 @@ google.lang = 'cn';
 
 baidu(string, function(err, res) {
   if (err) console.error(err);
+  if (!res) {
+    console.error(new Error('Error on response'));
+    return;
+  }
 
   for (var i = 0; i < res.links.length; ++i) {
     var link = res.links[i];
@@ -30,16 +35,16 @@ baidu(string, function(err, res) {
     if (res.next) res.next();
   }else {}
 });
-google(string, function(err, res) {
-  if (err) console.error(err);
+// google(string, function(err, res) {
+//   if (err) console.error(err);
 
-  for (var i = 0; i < res.links.length; ++i) {
-    var link = res.links[i];
-    googleResults.push(link);
-  }
+//   for (var i = 0; i < res.links.length; ++i) {
+//     var link = res.links[i];
+//     googleResults.push(link);
+//   }
 
-  if (nextCounter < pages) {
-    nextCounter += 1;
-    if (res.next) res.next();
-  }else {}
-});
+//   if (nextCounter < pages) {
+//     nextCounter += 1;
+//     if (res.next) res.next();
+//   }else {}
+// });
